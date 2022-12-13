@@ -14,7 +14,7 @@ public class ProcessRestController {
     private final ProcessEngineService engineService;
 
     @PostMapping("start")
-    public ResponseEntity<ProcessInstanceResponse> start(@RequestParam boolean dryRun, @RequestBody StartProcessRequest request) {
+    public ResponseEntity<ProcessInstanceResponse> start(@RequestParam(required = false) boolean dryRun, @RequestBody StartProcessRequest request) {
         ProcessInstanceResponse response = engineService.startProcessInstance(request, dryRun);
 
         return ResponseEntity.accepted()
