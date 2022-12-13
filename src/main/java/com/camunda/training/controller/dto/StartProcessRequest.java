@@ -1,26 +1,28 @@
-package com.camunda.training.variables;
+package com.camunda.training.controller.dto;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import lombok.With;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Value
 @RequiredArgsConstructor
 @Builder
-@With
-public class InputData {
+public class StartProcessRequest {
 
     @NotNull
     @NotBlank
     String name;
 
-    @Email
-    String email;
+    @NotNull
+    LocalDate birthday;
 
-    boolean dryRun;
+    @Email
+    @NotNull
+    String email;
 }

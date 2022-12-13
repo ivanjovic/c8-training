@@ -1,8 +1,8 @@
-package com.camunda.training.worker;
+package com.camunda.training.engine.worker;
 
 import com.camunda.training.config.AppProperties;
-import com.camunda.training.config.ProcessVariableKeys;
-import com.camunda.training.variables.InputData;
+import com.camunda.training.config.ProcessConstants;
+import com.camunda.training.engine.variables.InputData;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import io.camunda.zeebe.spring.client.annotation.VariablesAsType;
@@ -21,7 +21,7 @@ public class ValidateInputWorker {
     public Map<String, Object> execute(final ActivatedJob job, @VariablesAsType @Validated InputData input) {
 
         if (properties.isDryRun() || input.isDryRun()) {
-            return Map.of(ProcessVariableKeys.DRY_RUN, true);
+            return Map.of(ProcessConstants.VK_DRY_RUN, true);
         }
 
         return Map.of();
