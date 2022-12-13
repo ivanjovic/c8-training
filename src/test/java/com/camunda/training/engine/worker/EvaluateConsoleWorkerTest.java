@@ -1,6 +1,7 @@
 package com.camunda.training.engine.worker;
 
 import com.camunda.training.engine.variables.InputData;
+import com.camunda.training.engine.variables.Suggestion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,11 +26,11 @@ public class EvaluateConsoleWorkerTest {
     @ParameterizedTest
     @ValueSource(ints = {1972, 1981, Year.MAX_VALUE})
     void returnsOnlyOneSuggestionForNonOverlappingYears(int year) {
-
-        Map<String, List<String>> result = worker.evaluateConsole(getInputData(year));
+        Map<String, List<Suggestion>> result = worker.evaluateConsole(getInputData(year));
 
         assertThat(result.get(VK_SUGGESTIONS))
                 .hasSize(1)
+                .extracting(Suggestion::value)
                 .containsAnyOf(
                         "Magnavox Odyssey",
                         "Atari 2600",
@@ -39,10 +40,11 @@ public class EvaluateConsoleWorkerTest {
 
     @Test
     void returnsAllConsoleMatchingYearRange() {
-        Map<String, List<String>> result = worker.evaluateConsole(getInputData(2005));
+        Map<String, List<Suggestion>> result = worker.evaluateConsole(getInputData(2005));
 
         assertThat(result.get(VK_SUGGESTIONS))
                 .hasSize(3)
+                .extracting(Suggestion::value)
                 .containsOnly(
                         "Sony Playstation 1",
                         "Sony Playstation 2",
