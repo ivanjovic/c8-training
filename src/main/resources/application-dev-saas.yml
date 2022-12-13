@@ -1,0 +1,6 @@
+app:
+  dry-run: true
+
+spring:
+  config:
+    import: file:${HOME}/.camunda/zeebe.properties
