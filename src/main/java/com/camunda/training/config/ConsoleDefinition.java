@@ -2,7 +2,6 @@ package com.camunda.training.config;
 
 import com.camunda.training.util.Range;
 
-import java.time.LocalDate;
 import java.time.Year;
 import java.util.Map;
 

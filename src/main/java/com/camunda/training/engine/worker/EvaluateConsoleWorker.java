@@ -2,7 +2,6 @@ package com.camunda.training.engine.worker;
 
 import com.camunda.training.config.ProcessConstants;
 import com.camunda.training.engine.variables.InputData;
-import com.camunda.training.engine.variables.Suggestion;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import io.camunda.zeebe.spring.client.annotation.VariablesAsType;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +17,14 @@ import static com.camunda.training.config.ConsoleDefinition.CONSOLES;
 public class EvaluateConsoleWorker {
 
     @JobWorker
-    public Map<String, List<Suggestion>> evaluateConsole(@VariablesAsType InputData data) {
+    public Map<String, List<String>> evaluateConsole(@VariablesAsType InputData data) {
 
         int birthyear = data.getBirthday().getYear();
 
-        List<Suggestion> suggestions = CONSOLES.entrySet()
+        List<String> suggestions = CONSOLES.entrySet()
                 .stream()
                 .filter(e -> e.getKey().contains(birthyear))
-                .map(e -> new Suggestion(e.getValue(), e.getValue()))
+                .map(Map.Entry::getValue)
                 .toList();
 
         /*
