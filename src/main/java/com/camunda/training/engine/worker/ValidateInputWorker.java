@@ -7,7 +7,8 @@ import io.camunda.zeebe.spring.client.annotation.VariablesAsType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 @Component
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 public class ValidateInputWorker {
 
     @JobWorker(type = "validateInput")
-    public void execute(final ActivatedJob job, @VariablesAsType @Validated InputData input) {
+    public void execute(final ActivatedJob job, @VariablesAsType @Valid InputData input) {
         log.info("Passing validateInput");
     }
 }
