@@ -5,6 +5,7 @@ import com.camunda.training.controller.dto.StartProcessRequest;
 import com.camunda.training.engine.variables.InputData;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
+import io.camunda.zeebe.client.api.response.Topology;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,12 @@ import org.springframework.stereotype.Service;
 public class ProcessEngineService {
 
     private final ZeebeClient zeebeClient;
+
+    public Topology getTopologyDetails() {
+        return zeebeClient.newTopologyRequest()
+                .send()
+                .join();
+    }
 
     public ProcessInstanceEvent startProcessInstance(StartProcessRequest request, boolean dryRun) {
         return zeebeClient.newCreateInstanceCommand()
