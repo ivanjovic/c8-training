@@ -1,6 +1,5 @@
 package com.camunda.training.engine;
 
-import com.camunda.training.config.ProcessConstants;
 import com.camunda.training.controller.dto.StartProcessRequest;
 import com.camunda.training.engine.variables.InputData;
 import io.camunda.zeebe.client.ZeebeClient;
@@ -21,11 +20,11 @@ public class ProcessEngineService {
                 .join();
     }
 
-    public ProcessInstanceEvent startProcessInstance(StartProcessRequest request, boolean dryRun) {
+    public ProcessInstanceEvent startProcessInstance(String bpmProcessId, Object vars) {
         return zeebeClient.newCreateInstanceCommand()
-                .bpmnProcessId(ProcessConstants.PROCESS_ID)
+                .bpmnProcessId(bpmProcessId)
                 .latestVersion()
-                .variables(toInputData(request, dryRun))
+                .variables(vars)
                 .send()
                 .join();
     }

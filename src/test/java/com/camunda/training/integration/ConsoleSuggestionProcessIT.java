@@ -2,7 +2,7 @@ package com.camunda.training.integration;
 
 import com.camunda.training.ZeebeIntegrationTest;
 import com.camunda.training.controller.dto.StartProcessRequest;
-import com.camunda.training.engine.ProcessEngineService;
+import com.camunda.training.service.ProcessStarter;
 import com.camunda.training.support.ZeebeTestSupport;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,14 @@ import static io.camunda.zeebe.spring.test.ZeebeTestThreadSupport.waitForProcess
 public class ConsoleSuggestionProcessIT extends ZeebeIntegrationTest {
 
     @Autowired
-    private ProcessEngineService engineService;
+    private ProcessStarter processStarter;
 
     @Autowired
     private ZeebeTestSupport testSupport;
 
     @Test
     void whenUniqueConsoleResultThenProcessFinishedWithHappyPath() {
-        var instanceEvent = engineService.startProcessInstance(request(1981), false);
+        var instanceEvent = processStarter.startConsoleSuggestionProcess(request(1981), false);
 
         waitForProcessInstanceHasPassedElement(instanceEvent, EVALUATE_CONSOLE_BUSINESS_RULE_TASK);
 
@@ -44,7 +44,7 @@ public class ConsoleSuggestionProcessIT extends ZeebeIntegrationTest {
 
     @Test
     void whenMultipleConsoleResultsThenProcessRunsThroughUserTask() {
-        var instanceEvent = engineService.startProcessInstance(request(2005), false);
+        var instanceEvent = processStarter.startConsoleSuggestionProcess(request(2005), false);
 
         waitForProcessInstanceHasPassedElement(instanceEvent, EVALUATE_CONSOLE_BUSINESS_RULE_TASK);
 
@@ -71,7 +71,7 @@ public class ConsoleSuggestionProcessIT extends ZeebeIntegrationTest {
 
     @Test
     void whenNoConsoleResultsThenRejectionMailIsSent() {
-        var instanceEvent = engineService.startProcessInstance(request(1950), false);
+        var instanceEvent = processStarter.startConsoleSuggestionProcess(request(1950), false);
 
         waitForProcessInstanceHasPassedElement(instanceEvent, EVALUATE_CONSOLE_BUSINESS_RULE_TASK);
 
