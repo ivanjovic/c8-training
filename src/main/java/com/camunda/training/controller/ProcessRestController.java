@@ -3,20 +3,20 @@ package com.camunda.training.controller;
 import com.camunda.training.controller.dto.ProcessInstanceResponse;
 import com.camunda.training.controller.dto.StartProcessRequest;
 import com.camunda.training.engine.ProcessEngineService;
+import com.camunda.training.engine.operate.OperateService;
+import io.camunda.operate.dto.ProcessDefinition;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 public class ProcessRestController {
 
     private final ProcessEngineService engineService;
+    private final OperateService operateService;
 
     @PostMapping("start")
     public ResponseEntity<ProcessInstanceResponse> start(
@@ -31,5 +31,10 @@ public class ProcessRestController {
                                 processInstanceEvent.getVersion()
                         )
                 );
+    }
+
+    @GetMapping("/definition/{bpmnProcessId}/latest")
+    public ProcessDefinition getLatestProcessDefinition(@PathVariable String bpmnProcessId) {
+        return operateService.getLastestProcessDefinition(bpmnProcessId);
     }
 }

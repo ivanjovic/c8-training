@@ -1,3 +1,5 @@
 spring:
   config:
-    import: file:${HOME}/.camunda/zeebe.properties
+    import:
+      - file:${HOME}/.camunda/zeebe.properties
+      - file:${HOME}/.camunda/operate.properties
