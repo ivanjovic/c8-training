@@ -1,0 +1,10 @@
+operate:
+  client:
+    cloud:
+      base-url: http://localhost:${wiremock.server.port}/operate
+      cluster-id: cluster-id
+      cluster-region: cluster-region
+      client-id: client-id
+      client-secret: secret
+      token-audience: operate
+      oauth-url: http://localhost:${wiremock.server.port}/operate/oauth/token
