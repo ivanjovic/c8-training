@@ -1,7 +1,5 @@
 package com.camunda.training.engine;
 
-import com.camunda.training.controller.dto.StartProcessRequest;
-import com.camunda.training.engine.variables.InputData;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import io.camunda.zeebe.client.api.response.Topology;
@@ -27,14 +25,5 @@ public class ProcessEngineService {
                 .variables(vars)
                 .send()
                 .join();
-    }
-
-    private InputData toInputData(StartProcessRequest request, boolean dryRun) {
-        return InputData.builder()
-                .name(request.getName())
-                .birthday(request.getBirthday())
-                .email(request.getEmail())
-                .dryRun(dryRun)
-                .build();
     }
 }
