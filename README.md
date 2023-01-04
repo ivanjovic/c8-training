@@ -23,4 +23,6 @@ Core Features and Concepts used in this example are:
 - customization of Zeebe's Jackson-Mapper to reuse Springs `Objectmapper`instead of instanciating a new one missing relevant Jackson modules
 - running Integrationtests with `@ZeebeSpringTest` and interacting with the Engine
 - examples on how to handle Connectors and UserTasks within tests
+- Basic example on how to configure and use the Operate-HTTP-Client
+- some basic concepts on how to test the Operate REST-Api with Wiremock
 
